@@ -37,4 +37,47 @@ J2EE开发的一站式解决方案；<br>
        spring-boot-starter-web：包含了web模块正常运行所依赖的组件<br>
     Spring Boot将所有的功能场景都抽取出来，做成一个个的starters（启只动器），
     只需要在项目里引入starter相关的场景，所有的依赖都会被导入进来
-        
+## 4、主程序类，主入口类
+    @SpringBootApplication
+    public class ForSpringbootStartApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(ForSpringbootStartApplication.class, args);
+	    }
+    }
+@SpringBootApplication：Spring Boot应用，这个注解标注了Spring Boot
+的主配置类Spring Boot就应该运行该类的main方法启动应用
+#####@SpringBootApplication是一个组合注解：
+<pre name="code" class="java">
+@Target({ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Inherited
+@SpringBootConfiguration
+@EnableAutoConfiguration
+@ComponentScan(
+    excludeFilters = {@Filter(
+    type = FilterType.CUSTOM,
+    classes = {TypeExcludeFilter.class}
+), @Filter(
+    type = FilterType.CUSTOM,
+    classes = {AutoConfigurationExcludeFilter.class}
+)}
+)
+public @interface SpringBootApplication {
+</pre>
+@SpringBootConfiguration：Spring Boot的配置类，该注解标注了SpringBoot的
+配置类，其底层实现时Spring的@Configuration<br>
+配置类-----------配置文件；<br>
+配置类也是容器中的一个组件<br>
+@EnableAutoConfiguration：开启自动配置功能；<br>
+在Spring开发中需要手动配置的东西，SpringBoot现在可以自动配置;<br>
+SpringBoot开启自动配置功能，这样自动配置才能生效
+<pre name="code" class="java">
+ @AutoConfigurationPackage
+ @Import({AutoConfigurationImportSelector.class})
+ public @interface EnableAutoConfiguration {
+ </pre>
+  @AutoConfigurationPackage
+
+
