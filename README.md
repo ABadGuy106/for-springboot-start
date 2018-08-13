@@ -15,22 +15,26 @@ J2EE开发的一站式解决方案；<br>
 		<version>2.0.4.RELEASE</version>
 		<relativePath/> 
 	</parent>
-    父项目的父项目是：
+父项目的父项目是：
+
     <parent>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-dependencies</artifactId>
             <version>2.0.4.RELEASE</version>
             <relativePath>../../spring-boot-dependencies</relativePath>
     </parent>
-    这个最终的父项目是真正管理SpringBoot应用里面的所有依赖；
-    称为Spring Boot的版本仲裁中心;
-    导入依赖不需要写版本号，如果没有dependencies里边管理的依赖需要声明版本号
-    Spring Boot Web依赖
+   这个最终的父项目是真正管理SpringBoot应用里面的所有依赖；<br>
+   称为Spring Boot的版本仲裁中心;<br>
+   导入依赖不需要写版本号，如果没有dependencies里边管理的依赖需要声明版本号<br>
+   Spring Boot Web依赖
+   
     <dependency>
     			<groupId>org.springframework.boot</groupId>
     			<artifactId>spring-boot-starter-web</artifactId>
     </dependency>
-    spring-boot-starter-web：
-        spring-boot-starter：spring-boot场景启动器；
-        spring-boot-starter-web：包含了web模块正常运行所依赖的组件
+   spring-boot-starter-web：<br>
+       spring-boot-starter：spring-boot场景启动器；<br>
+       spring-boot-starter-web：包含了web模块正常运行所依赖的组件<br>
+    Spring Boot将所有的功能场景都抽取出来，做成一个个的starters（启只动器），
+    只需要在项目里引入starter相关的场景，所有的依赖都会被导入进来
         
