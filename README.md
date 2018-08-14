@@ -78,6 +78,25 @@ SpringBoot开启自动配置功能，这样自动配置才能生效
  @Import({AutoConfigurationImportSelector.class})
  public @interface EnableAutoConfiguration {
  </pre>
-  @AutoConfigurationPackage
+  @AutoConfigurationPackage:自动配置包<br>
+  @Import({AutoConfigurationImportSelector.class})<br>
+  Spring的底层注解@Import实现，给容器导入一个组件；<br>
+  导入的组件由AutoConfigurationImportSelector.class<br>
+  @AutoConfigurationPackage作用是：将主配置类（@SpringBootApplication标注的类）的所在包及下边所有的子包
+  里的所有组件扫描到容器中<br>
+  @Import({AutoConfigurationImportSelector.class})<br>
+  给容器中导入组件<br>
+  AutoConfigurationImportSelector:导入组件选择器;<br>
+将所有需要导入的组件以全类名的方式返回，这些组件就会被添加到容器中<br>
+会给容器中导入非常多的自动配置类（XXXAutoConfiguration）;<br>
+给容器中导入这个场景需要的组件，并配置好这些组件<br>
+有了自动配置类，就免去了我们手动编写配置注入功能组件等的工作<br>
+SpringBoot在启动的时候从类路径下的META-INF/spring.factories中获取EnableAutoConfiguration指定的值
+，将这些值作为自动配置类导入到容器中,自动配置类就生效了<br>
+
+
+  
+  
+  
 
 
