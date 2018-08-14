@@ -10,11 +10,11 @@ J2EE开发的一站式解决方案；<br>
 ## 3、SpringBoot POM文件解析
 
     <parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.4.RELEASE</version>
-		<relativePath/> 
-	</parent>
+    	<groupId>org.springframework.boot</groupId>
+    	<artifactId>spring-boot-starter-parent</artifactId>
+    	<version>2.0.4.RELEASE</version>
+    	<relativePath/> 
+    </parent>
 父项目的父项目是：
 
     <parent>
@@ -27,7 +27,7 @@ J2EE开发的一站式解决方案；<br>
    称为Spring Boot的版本仲裁中心;<br>
    导入依赖不需要写版本号，如果没有dependencies里边管理的依赖需要声明版本号<br>
    Spring Boot Web依赖
-   
+
     <dependency>
     			<groupId>org.springframework.boot</groupId>
     			<artifactId>spring-boot-starter-web</artifactId>
@@ -40,10 +40,10 @@ J2EE开发的一站式解决方案；<br>
 ## 4、主程序类，主入口类
     @SpringBootApplication
     public class ForSpringbootStartApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(ForSpringbootStartApplication.class, args);
-	    }
+    
+    public static void main(String[] args) {
+    	SpringApplication.run(ForSpringbootStartApplication.class, args);
+        }
     }
 @SpringBootApplication：Spring Boot应用，这个注解标注了Spring Boot
 的主配置类Spring Boot就应该运行该类的main方法启动应用
@@ -93,10 +93,103 @@ SpringBoot开启自动配置功能，这样自动配置才能生效
 有了自动配置类，就免去了我们手动编写配置注入功能组件等的工作<br>
 SpringBoot在启动的时候从类路径下的META-INF/spring.factories中获取EnableAutoConfiguration指定的值
 ，将这些值作为自动配置类导入到容器中,自动配置类就生效了<br>
+## 配置文件
+SpringBoot使用一个全局的配置文件，配置文件的名称是固定的:<br>
+application.properties<br>
+application.yml<br>
+配置文件的作用：修改SpringBoot自动配置的默认值；<br>
+yml是YAML（YAML Ain't Markup Language）语言的文件，以数据问中心，
+比json、xml等更合适做配置文件<br>
+## YAML语法
+### 基本语法
+k:(空格)v——表示一对键值对（空格必须有）；<br>
+以空格的缩进来控制层级关系；<br>
+只要是左对齐的一列数据，都是在同一个层级的
+### 值的写法
+字面量：普通的值（数字，字符，布尔）<br>
+k: v  字面量直接来写，字符串默认不用加单引号或这双引号<br>
+""-双引号：不会转义字符串里的特殊字符，特殊字符会作为本身表示<br>
+例如：name: "zhanngsan\n lisi" ： 输出:zhangsan 换行 lisi<br>
+
+‘’-单引号：会转义特殊字符，特殊字符最终只是一个普通的字符串<br>
+例如：name: 'zhanngsan\n lisi' ： 输出:zhangsan \n lisi
+<br>
+对象（属性和值）（键值对）：<br>
+k: v-在下一行来写对象的属性<br>
+  对象的还是k: v的方式<br>
+  例如：<br>
+<pre name="code" class="js">
+  friends:
+    lastName:zhansan
+    age:20
+</pre>
+行内写法：
+<pre name="code" class="js">
+frineds:{lastName:zhangsan,age:18}
+</pre>
+
+数组（List、Set）<br>
+用 -(空格)值 表示数组中你那个的一个元素<br>
+
+<pre name="code" class="js">
+    pets:
+        - cat
+        - dog
+        - pig
+</pre>
+行内写法：
+<pre name="code" class="js">
+pets:[cat,dog,pig]
+</pre>
+### SpringBoot配置注解
+<pre name="code" class="js">
+@ConfigurationProperties(prefix="前缀")
+
+@Value("")
+</pre>
+如果在某项业务逻辑中只需要回去一下配置文件中的某个值，使用@Value；
+如果专门编写了一个JavaBean来和配置文件进行映射，就直接直接使用@ConfigurationProperties
+<br>
+@PropertySource:加载指定的配置文件；
+<br>
+@ImportResource:导入Spring的配置文件，让配置文件里面的内容生效；
+
+## Profile
+Profile是Spring对不同环境提供不同配置功能的支持，可以通过指定激活参数等方式快速切换环境
+<br>
+1、多profile文件形式：<br>
+    -格式：application-{profile}.properties:
+    <br>
+    application-dev.properties
+    <br>
+    application-prod.properties<br>
+2、多profile文档模式：<br>
+3、激活方式：<br>
+    -命令 --spring.profiles.active=dev<br>
+    -配置文件 spring.profiles.active=dev<br>
+    -jvm参数 -Dspring.profiles.active=dev<br>
+### a、多profile文件
+在主配置文件编写的时候，文件名可以是 application-{profile}.properties/yml
+<br>
+默认使用application.properties的配置<br>
 
 
+### c、激活
+1、在配置文件中指定 psring.profiles.active=dev
+## 配置文件加载位置
+springboot启动会扫描以下位置的applicatio.properties或者application.yml文件作为Spring Boot
+的默认配置文件<br>
+- file:./config/<br>
+- file:./<br>
+- classpath:/config/<br>
+- classpath:/<br>
+以上是按优先级从高到低的顺序，所有位置的文件都会被加载，高优先级配置的内容会覆盖低优先级配置的内容
+<br>
+也可以通过配置spring.config.location来改变默认配置
+
+
+
   
-  
-  
+
 
 
