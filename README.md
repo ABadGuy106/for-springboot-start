@@ -186,6 +186,34 @@ springboot启动会扫描以下位置的applicatio.properties或者application.y
 以上是按优先级从高到低的顺序，所有位置的文件都会被加载，高优先级配置的内容会覆盖低优先级配置的内容
 <br>
 也可以通过配置spring.config.location来改变默认配置
+##SpringBoot日志框架
+如何让系统中所有的日志都统一到slf4j：<br>
+1、将系统中其他日志框架排除出去<br>
+2、用中间包来替换原有的日志框架<br>
+3、导入slf4j其他的实现<br>
+如果在springboot中要引入其他
+框架，一定要把这个框架默认的日志依赖排除掉
+<br>
+例如：<br>
+
+    <dependency>
+        <groupId>net.sourceforge.htmlunit</groupId>
+        <artifactId>htmlunit</artifactId>
+        <version>${htmlunit.version}</version>
+        <exclusions>
+            <exclusion>
+                <artifactId>commons-logging</artifactId>
+                <groupId>commons-logging</groupId>
+            </exclusion>
+        </exclusions>
+    </dependency>
+
+SpringBoot能自动适配所有日志框架，而且底层使用slf4j+logback
+的方式记录日志，引入其他框架时，只需要把这个框架依赖的日志框架排除掉
+<br>
+SpringBoot默认已经配置好了日志框架
+
+
 
 
 
